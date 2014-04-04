@@ -1,13 +1,15 @@
 ---
 default:
   php_path: php
-  is_logging: true
+  is_logging: false
   is_stdout: false
   prefix_message: '[RunTasks\Runner::run]'
 
 groups:
   example_group:
-    - example:test1 "`date -d '5 minutes ago' '+%Y%m%d%H'`" "`date -d '5 minutes ago' '+%M'`"
-    - example:test2 "`date '+%Y%m%d%H%M'`"
-    - example:test3 "`date '+%F %H:%M:%S'`"
-    - example:test4
+    - runtasksexample:test1 "`date -d '5 minutes ago' '+%Y%m%d%H'`" "`date -d '5 minutes ago' '+%M'`"
+    - runtasksexample:test2 "`date '+%Y%m%d%H%M'`"
+    - runtasksexample:test3 "`date '+%F %H:%M:%S'`"
+    - runtasksexample:test4
+  throw_group:
+    - runtasksexample:test5

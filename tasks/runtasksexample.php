@@ -1,7 +1,7 @@
 <?php
 namespace Fuel\Tasks;
 
-class Example {
+class RunTasksExample {
     public function run() {
     }
 
@@ -16,10 +16,13 @@ class Example {
 
     public function test3($args) {
         print "datetime: $args\n";
+    }
+
+    public function test4() {
         print 'FUEL_ENV: '.\Fuel::$env."\n";
     }
 
-    public function test4($args) {
-        print 'FUEL_ENV: '.\Fuel::$env."\n";
+    public function test5() {
+        throw \Exception('test4 died.');
     }
 }

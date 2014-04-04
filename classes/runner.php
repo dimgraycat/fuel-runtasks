@@ -3,7 +3,7 @@
  * FuelPHP RunTasks Packages
  *
  * @package     RunTasks
- * @version     0.1.0
+ * @version     0.1.2
  * @author      dimgraycat
  * @copyright   dimgraycat
  * @license     MIT License http://www.opensource.org/licenses/mit-license.php
@@ -34,14 +34,19 @@ class Runner {
      * Constructor
      * @param array $properties
      */
-    public function __construct(array $properties = array()) {
-        Config::load('runtasks.yml', true);
+    public function __construct(array $properties = array(), $config_file = null) {
+        $this->_config_load($config_file);
 
         $default_properties = Config::get('runtasks.default', array());
         $properties = array_merge($default_properties, $properties);
         $this->set_properties($properties);
 
         $this->oil_refine = sprintf('%s%s refine', DOCROOT, 'oil');
+    }
+
+    protected function _config_load($config_file) {
+        $file = ($config_file !== null) ? $config_file : 'runtasks.yml';
+        Config::load($file, 'runtasks', true);
     }
 
     /**
@@ -62,6 +67,7 @@ class Runner {
      */
     public function run($group) {
         $tasks = Config::get("runtasks.groups.$group", array());
+        $exit_code = -1;
         foreach($tasks as $task) {
             $command = $this->command($task);
             $this->_logger('info', '----');
@@ -93,6 +99,7 @@ class Runner {
             unset($output);
             if($exit_code !== 0) break;
         }
+        return $exit_code;
     }
 
     /**
