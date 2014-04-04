@@ -34,7 +34,7 @@ class Test_Runner extends TestCase {
     public function test_run_failed() {
         $runner = $this->instance();
         $exit_code = $runner->run('throw_group');
-        $this->assertEquals(1, $exit_code);
+        $this->assertEquals(255, $exit_code);
     }
 
     public function instance(array $properties = array()) {
