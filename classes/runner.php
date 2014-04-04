@@ -61,7 +61,7 @@ class Runner {
      * @param string $group
      */
     public function run($group) {
-        $tasks = Config::get("runtasks.groups.$group", null);
+        $tasks = Config::get("runtasks.groups.$group", array());
         foreach($tasks as $task) {
             $command = $this->command($task);
             $this->_logger('info', '----');

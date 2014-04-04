@@ -1,0 +1,28 @@
+<?php
+/**
+ * @package     Fuel
+ * @version     1.7
+ * @author      dimgraycat
+ * @license     MIT License http://www.opensource.org/licenses/mit-license.php
+ * @copyright   2014 dimgraycat
+ */
+
+error_reporting(-1);
+ini_set('display_errors', 1);
+
+define('DOCROOT', __DIR__.DIRECTORY_SEPARATOR);
+define('APPPATH', realpath(__DIR__.'/fuel/app/').DIRECTORY_SEPARATOR);
+define('PKGPATH', realpath(__DIR__.'/fuel/packages/').DIRECTORY_SEPARATOR);
+define('COREPATH', realpath(__DIR__.'/fuel/core/').DIRECTORY_SEPARATOR);
+defined('FUEL_START_TIME') or define('FUEL_START_TIME', microtime(true));
+defined('FUEL_START_MEM') or define('FUEL_START_MEM', memory_get_usage());
+
+// Boot the app
+require APPPATH.'bootstrap.php';
+
+Package::load('fuel-runtasks');
+
+$runner = new RunTasks\Runner();
+$runner->run($_SERVER['argv'][1]);
+
+/* End of file runtasks */
