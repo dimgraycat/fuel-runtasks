@@ -1,9 +1,23 @@
+# default:
+#   php_path: phpの実行パス (ex: /usr/bin/php)
+#   is_logging: \Log で実行内容を出力するかどうか(groupsで設定したtasksのエラー内容も含まれる。)
+#   is_stdout: stdoutするかどうか。
+#   is_continue: groupsで設定した各tasksのarrayの途中でエラーだった場合でも次のtaskを実行するかどうか
+#
+# php_ini:
+#   memory_limit: メモリーの使用量(http://php.net/manual/ja/ini.core.php)
+#   time_limit: 実行時間の最大値(http://php.net/manual/ja/function.set-time-limit.php)
 ---
 default:
   php_path: php
   is_logging: false
   is_stdout: false
+  is_continue: false
   prefix_message: '[RunTasks\Runner::run]'
+
+php_ini:
+  memory_limit: '128M'
+  time_limit: 30
 
 groups:
   example_group:

@@ -3,7 +3,7 @@
  * FuelPHP RunTasks Packages
  *
  * @package     RunTasks
- * @version     0.1.2
+ * @version     0.1.3
  * @author      dimgraycat
  * @copyright   dimgraycat
  * @license     MIT License http://www.opensource.org/licenses/mit-license.php
@@ -43,7 +43,7 @@ class Runner {
     }
 
     protected function _init_php_ini() {
-        ini_set('memory_limit', Config::get('runtasks.php_ini.memory_limit', '128k'));
+        ini_set('memory_limit', Config::get('runtasks.php_ini.memory_limit', '128M'));
         set_time_limit(Config::get('runtasks.php_ini.time_limit', 30));
     }
 
@@ -63,8 +63,9 @@ class Runner {
      * @param mixed $properties the new property key and value
      */
     public function set_properties($properties) {
-        $properties = is_array($properties) ? $properties : array( $properties => null );
+        is_array($properties) or $properties = array($properties => null);
         foreach($properties as $name => $value) {
+            $value or $value = false;
             $this->$name = $value;
         }
     }
@@ -106,7 +107,7 @@ class Runner {
             }
             $this->_logger('info', sprintf('command exited with code: %s time: %f', $exit_code, microtime(true) - $time_start));
             unset($output);
-            if($exit_code !== 0) break;
+            if($exit_code !== 0 && !$this->is_continue) break;
         }
         return $exit_code;
     }

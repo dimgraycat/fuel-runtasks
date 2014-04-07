@@ -3,11 +3,12 @@ default:
   php_path: /path/to/php
   is_logging: true
   is_stdout: false
+  is_continue: true
   prefix_message: '[RunTasks\Runner::run]'
 
 php_ini:
-  memory_limit: '128k'
-  time_limit: 30,
+  memory_limit: '128M'
+  time_limit: 30
 
 groups:
   group1: []
