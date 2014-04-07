@@ -5,5 +5,9 @@ default:
   is_stdout: false
   prefix_message: '[RunTasks\Runner::run]'
 
+php_ini:
+  memory_limit: '128k'
+  time_limit: 30,
+
 groups:
   group1: []

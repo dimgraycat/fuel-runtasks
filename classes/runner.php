@@ -36,12 +36,21 @@ class Runner {
      */
     public function __construct(array $properties = array(), $config_file = null) {
         $this->_config_load($config_file);
+        $this->_init_php_ini();
+        $this->_init_properties($properties);
 
+        $this->oil_refine = sprintf('%s%s refine', DOCROOT, 'oil');
+    }
+
+    protected function _init_php_ini() {
+        ini_set('memory_limit', Config::get('runtasks.php_ini.memory_limit', '128k'));
+        set_time_limit(Config::get('runtasks.php_ini.time_limit', 30));
+    }
+
+    protected function _init_properties(array $properties) {
         $default_properties = Config::get('runtasks.default', array());
         $properties = array_merge($default_properties, $properties);
         $this->set_properties($properties);
-
-        $this->oil_refine = sprintf('%s%s refine', DOCROOT, 'oil');
     }
 
     protected function _config_load($config_file) {
