@@ -23,6 +23,6 @@ class RunTasksExample {
     }
 
     public function test5() {
-        throw \Exception('test4 died.');
+        throw new \Exception('test4 died.');
     }
 }
