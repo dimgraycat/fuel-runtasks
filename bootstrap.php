@@ -11,5 +11,6 @@
 Autoloader::add_core_namespace('RunTasks');
 
 Autoloader::add_classes(array(
-    'RunTasks\\Runner'  => __DIR__.'/classes/runner.php',
+    'RunTasks_Runner'  => __DIR__.'/classes/runner.php',
+    'RunTasks_Cli'     => __DIR__.'/classes/cli.php',
 ));

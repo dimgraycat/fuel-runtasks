@@ -1,10 +1,10 @@
 ---
 default:
   php_path: /path/to/php
-  is_logging: true
-  is_stdout: false
+  is_logging: false
+  is_stdout: true
   is_continue: true
-  prefix_message: '[RunTasks\Runner::run]'
+  prefix_message: '[RunTasks_Runner::run]'
 
 php_ini:
   memory_limit: '128M'

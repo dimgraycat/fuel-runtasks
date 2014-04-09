@@ -3,17 +3,16 @@
  * FuelPHP RunTasks Packages
  *
  * @package     RunTasks
- * @version     0.1.3
+ * @version     0.2.0
  * @author      dimgraycat
  * @copyright   dimgraycat
  * @license     MIT License http://www.opensource.org/licenses/mit-license.php
  */
-namespace RunTasks;
 
 use \Config;
 use \Fuel;
 
-class Runner {
+class RunTasks_Runner {
     /**
      * Default Properties
      * @var array
@@ -31,8 +30,46 @@ class Runner {
     );
 
     /**
+     * Singleton instance
+     * @var Runtasks\Runner $instance Singleton master instance
+     */
+    protected static $instance = null;
+
+    /**
+     * An alias for Runtasks\Runner::instance()->execute();
+     *
+     * @param   array $properties
+     * @param   array $config_file
+     */
+    public static function run($group, array $properties = array(), $config_file = null) {
+        return static::instance($properties, $config_file)->execute($group);
+    }
+
+    /**
+     * Gets a singleton instance of Runtasks
+     *
+     * @return  Runtasks
+     */
+    public static function instance(array $properties = array(), $config_file = null) {
+        static::$instance or static::$instance = static::forge($properties, $config_file);
+        return static::$instance;
+    }
+
+    /**
+     * Forges new Runtasks.
+     *
+     * @param   array $properties
+     * @param   array $config_file
+     * @return  Runtasks
+     */
+    public static function forge($properties, $config_file) {
+        return new static($properties, $config_file);
+    }
+
+    /**
      * Constructor
-     * @param array $properties
+     * @param   array $properties
+     * @param   array $config_file
      */
     public function __construct(array $properties = array(), $config_file = null) {
         $this->_config_load($config_file);
@@ -71,17 +108,17 @@ class Runner {
     }
 
     /**
-     * run
+     * execute
      *
      * @param string $group
      */
-    public function run($group) {
+    public function execute($group) {
         $tasks = Config::get("runtasks.groups.$group", array());
         $exit_code = -1;
         foreach($tasks as $task) {
             $command = $this->command($task);
             $this->_logger('info', '----');
-            $this->_logger('info', sprintf('starting: %s', $command));
+            $this->_logger('info', sprintf('starting: task:[%s]', $task));
             $time_start = microtime(true);
             $exit_code = null;
             try {
@@ -96,17 +133,19 @@ class Runner {
 
                     $stderr = stream_get_contents($pipes[2]);
                     fclose($pipes[2]);
-                    $this->_std_logger('warning', $stderr);
+                    $this->_std_logger('error', $stderr);
                     unset($stderr);
 
                     $exit_code = proc_close($process);
                 }
             }
             catch(\Exception $e) {
-                $this->_logger('warning', $e->getMessage());
+                $this->_logger('error', $e->getMessage());
             }
-            $this->_logger('info', sprintf('command exited with code: %s time: %f', $exit_code, microtime(true) - $time_start));
-            unset($output);
+            $this->_logger('info', sprintf(
+                'command exited with code:[%s] task:[%s] time:[%f sec]',
+                $exit_code, $task, microtime(true) - $time_start
+            ));
             if($exit_code !== 0 && !$this->is_continue) break;
         }
         return $exit_code;
@@ -137,8 +176,6 @@ class Runner {
      * @param string $message the stdXXX message
      */
     protected function _std_logger($method, &$message) {
-        if($this->is_logging !== true) return;
-
         $lines = preg_split("/\R/", $message);
         $lines = array_filter($lines, 'strlen');
         foreach($lines as $line) $this->_logger($method, $line);
@@ -151,8 +188,8 @@ class Runner {
      * @param string $message
      */
     protected function _logger($method, $message = null) {
+        if($this->is_stdout === true)  fwrite(STDOUT, "$message\n");
         if($this->is_logging !== true) return;
-        if($this->is_stdout === true)  print "$message\n";
         \Log::$method($message, $this->prefix_message);
     }
 

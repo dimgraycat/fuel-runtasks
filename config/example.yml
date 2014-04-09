@@ -13,7 +13,7 @@ default:
   is_logging: false
   is_stdout: false
   is_continue: false
-  prefix_message: '[RunTasks\Runner::run]'
+  prefix_message: '[RunTasks_Runner::run]'
 
 php_ini:
   memory_limit: '128M'
@@ -25,5 +25,7 @@ groups:
     - runtasksexample:test2 "`date '+%Y%m%d%H%M'`"
     - runtasksexample:test3 "`date '+%F %H:%M:%S'`"
     - runtasksexample:test4
-  throw_group:
+  throw:
     - runtasksexample:test5
+  unknown:
+    - runtasksexample:test6

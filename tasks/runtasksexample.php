@@ -23,6 +23,10 @@ class RunTasksExample {
     }
 
     public function test5() {
-        throw new \Exception('test4 died.');
+        throw new \Exception('test5 died.');
+    }
+
+    public function test6() {
+        $instance = new UnknownClass();
     }
 }
