@@ -1,0 +1,3 @@
+example_group2:
+  - runtasksexample:test3 "`date '+%F %H:%M:%S'`"
+  - runtasksexample:test4

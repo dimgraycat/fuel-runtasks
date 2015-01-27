@@ -3,7 +3,7 @@
  * RunTasks Tasks
  * @author      dimgraycat
  * @license     MIT License http://www.opensource.org/licenses/mit-license.php
- * @copyright   2014 dimgraycat
+ * @copyright   2015 dimgraycat
  */
 namespace Fuel\Tasks;
 

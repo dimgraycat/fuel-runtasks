@@ -148,7 +148,7 @@ runtasks.ymlの中身
 
 ## Copyright
 
-* Copyright (c) 2014 - dimgraycat
+* Copyright (c) 2015 - dimgraycat
 * License
   * [MIT License]
 

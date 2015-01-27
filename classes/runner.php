@@ -12,6 +12,8 @@
 use \Config;
 use \Fuel;
 
+use \RunTasks_Config;
+
 class RunTasks_Runner {
     /**
      * Default Properties
@@ -113,7 +115,7 @@ class RunTasks_Runner {
      * @param string $group
      */
     public function execute($group) {
-        $tasks = Config::get("runtasks.groups.$group", array());
+        $tasks = RunTasks_Config::get($this->include_dir, $group);
         $exit_code = -1;
         foreach($tasks as $task) {
             $command = $this->command($task);

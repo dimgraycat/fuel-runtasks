@@ -10,6 +10,7 @@
 ---
 default:
   php_path: php
+  include_dir: runtasks
   is_logging: false
   is_stdout: false
   is_continue: false
@@ -20,11 +21,14 @@ php_ini:
   time_limit: 30
 
 groups:
-  example_group:
+  example_group1:
     - runtasksexample:test1 "`date -d '5 minutes ago' '+%Y%m%d%H'`" "`date -d '5 minutes ago' '+%M'`"
     - runtasksexample:test2 "`date '+%Y%m%d%H%M'`"
     - runtasksexample:test3 "`date '+%F %H:%M:%S'`"
     - runtasksexample:test4
+  +example_group2: 'example_test1.yml'
+  +example_group3: 'example_test2.yml'
+  +example_group4: example_test3
   throw:
     - runtasksexample:test5
   unknown:

@@ -1,6 +1,7 @@
 ---
 default:
   php_path: /path/to/php
+  include_dir: runtasks
   is_logging: false
   is_stdout: true
   is_continue: true

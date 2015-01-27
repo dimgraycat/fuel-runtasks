@@ -48,7 +48,7 @@ class Test_Runner extends TestCase {
 
     public function test_run_success() {
         $runner = $this->instance();
-        $exit_code = $runner->execute('example_group');
+        $exit_code = $runner->execute('example_group1');
         $this->assertEquals(0, $exit_code);
     }
 
@@ -65,7 +65,7 @@ class Test_Runner extends TestCase {
     }
 
     public function test_run_singleton() {
-        $exit_code = RunTasks_Runner::run('example_group', array(), 'example.yml');
+        $exit_code = RunTasks_Runner::run('example_group1', array(), 'example.yml');
         $this->assertEquals(0, $exit_code);
 
         $exit_code = RunTasks_Runner::run('throw', array(), 'example.yml');
@@ -73,6 +73,28 @@ class Test_Runner extends TestCase {
 
         $exit_code = RunTasks_Runner::run('unknown', array(), 'example.yml');
         $this->assertEquals(255, $exit_code);
+    }
+
+    public function function_run_include() {
+        $runner = $this->instance();
+
+        $exit_code = $runner->execute('example_group2');
+        $this->assertEquals(0, $exit_code);
+
+        $exit_code = $runner->execute('example_group3');
+        $this->assertEquals(0, $exit_code);
+
+        $exit_code = $runner->execute('example_group4');
+        $this->assertEquals(0, $exit_code);
+
+        $exit_code = RunTasks_Runner::run('example_group2', array(), 'example.yml');
+        $this->assertEquals(0, $exit_code);
+
+        $exit_code = RunTasks_Runner::run('example_group3', array(), 'example.yml');
+        $this->assertEquals(0, $exit_code);
+
+        $exit_code = RunTasks_Runner::run('example_group4', array(), 'example.yml');
+        $this->assertEquals(0, $exit_code);
     }
 
     public function instance(array $properties = array()) {
