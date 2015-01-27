@@ -26,7 +26,7 @@ class RunTasks_Config {
                 unset($groups[$matches[0]]);
             }
         }
-        return array_key_exists($load_group, $groups) ? $group[$load_group] : array();
+        return array_key_exists($load_group, $groups) ? $groups[$load_group] : array();
     }
 
     /**
