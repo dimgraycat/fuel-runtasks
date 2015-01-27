@@ -3,7 +3,7 @@
  * FuelPHP RunTasks Packages
  *
  * @package     RunTasks
- * @version     0.2.0
+ * @version     0.3.0
  * @author      dimgraycat
  * @copyright   dimgraycat
  * @license     MIT License http://www.opensource.org/licenses/mit-license.php
