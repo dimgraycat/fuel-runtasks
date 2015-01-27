@@ -139,6 +139,49 @@ runtasks.ymlの中身
 * groups: ここに実行させたいtasksを設定してください
   * [config/example.yml]を参照してください
 
+#### runtasksのtasks(groups)の設定を外部の設定から読み込む
+
+初期設定ではruntasksのフォルダになります。
+
+    fuel/app/config/runtasks/*
+    fuel/app/config/<env>/runtasks/*
+
+設定方法は下記を参照してください
+
+config/runtasks.yml
+
+    ---
+    default:
+      php_path: /path/to/php
+      include_dir: runtasks
+      is_logging: false
+      is_stdout: true
+      is_continue: true
+      prefix_message: '[RunTasks_Runner::run]'
+    php_ini:
+      memory_limit: '128M'
+      time_limit: 30
+    groups:
+      hourly:
+        - task1
+        - task2:foo
+        - task3:bar "`date -d '1 hours ago' '+%F %H:00:00'`" "`date -d '1 hours ago' '+%F %H:59:59'`"
+      +daily: 'daily.yml'
+      +monthly: 'monthly'
+
+* defaultに **include_dir** を追加
+** 初期値では **runtasks** になっています
+* groups
+** 実行したいファイル名を設定する
+
+config/runtasks/daily.yml
+
+    ---
+    daily:
+      - dailytask1
+      - dailytask1:foo
+      - dailytask1:bar "`date -d '1 hours ago' '+%F %H:00:00'`" "`date -d '1 hours ago' '+%F %H:59:59'`"
+
 ## optionsについて
 
 一時的にLogに出力したい場合や、STDOUTで出力したい場合などにオプションを付けることができます  

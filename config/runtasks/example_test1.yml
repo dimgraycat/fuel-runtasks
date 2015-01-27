@@ -1,2 +1,3 @@
+---
 example_group1:
   - runtasksexample:test2 "`date '+%Y%m%d%H%M'`"

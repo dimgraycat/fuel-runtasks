@@ -23,9 +23,10 @@ class RunTasks_Config {
             if(!empty($matches)) {
                 $conf = self::load($include_dir, $group, $tasks);
                 $groups = array_merge($groups, $conf);
+                unset($groups[$matches[0]]);
             }
         }
-        return $groups[$load_group];
+        return array_key_exists($load_group, $groups) ? $group[$load_group] : array();
     }
 
     /**
