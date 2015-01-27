@@ -170,9 +170,9 @@ config/runtasks.yml
       +monthly: 'monthly'
 
 * defaultに **include_dir** を追加
-** 初期値では **runtasks** になっています
+  * 初期値では **runtasks** になっています
 * groups
-** 実行したいファイル名を設定する
+  * 実行したいファイル名を設定する
 
 config/runtasks/daily.yml
 
