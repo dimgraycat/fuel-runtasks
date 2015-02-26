@@ -154,7 +154,7 @@ oilで実行したいコマンド以外にもshellで実行出来るようにな
     ---
     groups:
       hourly:
-        - cmd: php -r 'echo "run task!;'
+        - cmd: php -r 'echo "run task!";'
         - oil: task3:bar "`date -d '1 hours ago' '+%F %H:00:00'`" "`date -d '1 hours ago' '+%F %H:59:59'`"
 
 #### runtasksのtasks(groups)の設定を外部の設定から読み込む
