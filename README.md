@@ -114,6 +114,7 @@ runtasks.ymlの中身
     ---
     default:
       php_path: /path/to/php
+      include_dir: runtasks
       is_logging: false
       is_stdout: true
       is_continue: true
@@ -127,6 +128,7 @@ runtasks.ymlの中身
 * default
   * php_path: phpのインタプリタを設定します
     * /usr/bin/php など
+  * include_dir: 内から別ファイルを読み込むディレクトリ
   * is_logging: \Log::$method での出力をするかどうかをbooleanで設定します
   * is_stdout: コマンドラインから実行時にSTDOUTするかどうかをbooleanで設定します
     * trueの時、STDERRも出力されます
@@ -138,6 +140,22 @@ runtasks.ymlの中身
   * time_limit: phpの[set_time_limit]に設定する値
 * groups: ここに実行させたいtasksを設定してください
   * [config/example.yml]を参照してください
+
+### shellコマンドなどを使う
+
+    ---
+    groups:
+      hourly:
+        - cmd: php -r 'echo "run task!;'
+
+oilで実行したいコマンド以外にもshellで実行出来るようになっています。
+もし明示的にshellコマンドなのかoilなのかを分けたい場合は下記の様に設定することができます。
+
+    ---
+    groups:
+      hourly:
+        - cmd: php -r 'echo "run task!;'
+        - oil: task3:bar "`date -d '1 hours ago' '+%F %H:00:00'`" "`date -d '1 hours ago' '+%F %H:59:59'`"
 
 #### runtasksのtasks(groups)の設定を外部の設定から読み込む
 
@@ -191,7 +209,7 @@ config/runtasks/daily.yml
 
 ## Copyright
 
-* Copyright (c) 2015 - dimgraycat
+* Copyright (c) 2014-2015 dimgraycat
 * License
   * [MIT License]
 

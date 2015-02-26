@@ -2,10 +2,10 @@
 /**
  * FuelPHP RunTasks Packages
  *
- * @package   RunTasks
  * @author    dimgraycat
  * @copyright dimgraycat
  * @license   MIT License http://www.opensource.org/licenses/mit-license.php
+ * @package   Fuel
  */
 
 Autoloader::add_core_namespace('RunTasks');

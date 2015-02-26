@@ -2,11 +2,10 @@
 /**
  * FuelPHP RunTasks Packages
  *
- * @package     RunTasks
- * @version     0.3.0
  * @author      dimgraycat
  * @copyright   dimgraycat
  * @license     MIT License http://www.opensource.org/licenses/mit-license.php
+ * @package     Fuel
  */
 
 use \Config;
@@ -120,7 +119,7 @@ class RunTasks_Runner {
         foreach($tasks as $task) {
             $command = $this->command($task);
             $this->_logger('info', '----');
-            $this->_logger('info', sprintf('starting: task:[%s]', $task));
+            $this->_logger('info', sprintf('starting: task:[%s]', $command));
             $time_start = microtime(true);
             $exit_code = null;
             try {
@@ -146,7 +145,7 @@ class RunTasks_Runner {
             }
             $this->_logger('info', sprintf(
                 'command exited with code:[%s] task:[%s] time:[%f sec]',
-                $exit_code, $task, microtime(true) - $time_start
+                $exit_code, $command, microtime(true) - $time_start
             ));
             if($exit_code !== 0 && !$this->is_continue) break;
         }
@@ -161,8 +160,19 @@ class RunTasks_Runner {
      */
     public function command($task) {
         if(is_array($task)) {
-            $task = $task['command'];
+            if(array_key_exists('oil', $task)) {
+                return $this->cmd_oil($task['oil']);
+            }
+            elseif(array_key_exists('cmd', $task)) {
+                return $task['cmd'];
+            }
         }
+        else {
+            return $this->cmd_oil($task);
+        }
+    }
+
+    protected function cmd_oil($task) {
         return sprintf('env FUEL_ENV=%s %s %s %s',
             Fuel::$env,
             $this->php_path,

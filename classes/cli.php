@@ -1,9 +1,11 @@
 <?php
 /**
- * @package     RunTasks
+ * FuelPHP RunTasks Packages
+ *
  * @author      dimgraycat
+ * @copyright   dimgraycat
  * @license     MIT License http://www.opensource.org/licenses/mit-license.php
- * @copyright   2015 dimgraycat
+ * @package     Fuel
  */
 
 use \Cli;
