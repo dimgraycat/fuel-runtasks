@@ -115,6 +115,7 @@ class RunTasks_Runner {
      */
     public function execute($group) {
         $tasks = RunTasks_Config::get($this->include_dir, $group);
+        if(is_array($tasks) and empty($tasks)) return 0;
         if(empty($tasks) or !is_array($tasks)) {
             $this->_logger('error', sprintf("Setting is incorrect. group:[%s]", $group));
             exit;
