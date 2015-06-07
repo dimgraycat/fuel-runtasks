@@ -44,6 +44,11 @@ function start() {
 
     settings();
 
+    // Load in the Fuel autoloader
+    require COREPATH.'classes'.DIRECTORY_SEPARATOR.'autoloader.php';
+    class_alias('Fuel\\Core\\Autoloader', 'Autoloader');
+
+    // Boot the app
     require APPPATH.'bootstrap.php';
 
     Package::load('fuel-runtasks');
