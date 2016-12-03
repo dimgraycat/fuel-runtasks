@@ -1,7 +1,6 @@
 # fuel-runtasks
 
 [![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/dimgraycat/PHP-PickUrl/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/dimgraycat/fuel-runtasks.svg?branch=master)](https://travis-ci.org/dimgraycat/fuel-runtasks)
 
 RunTasks package for [FuelPHP].
 
